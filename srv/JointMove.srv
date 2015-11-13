@@ -1,0 +1,4 @@
+brics_actuator/JointPositions move
+bool[] overwrite
+---
+std_msgs/UInt8 mode

@@ -1,0 +1,453 @@
+<?xml version="1.0"?>
+<robot xmlns:xi="http://www.w3.org/2001/XInclude"
+       xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+       xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+       xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+       xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+       xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+       xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics"
+       xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       name="guardian">
+
+  <xacro:macro name="robotnik_guardian" params="parent name *origin">
+    <joint name="${name}_guardian_joint" type="fixed">
+      <origin xyz="3.5 0.7 0.05" rpy="0 0 -1.571"/>
+      <parent link="${parent}"/>
+      <child link="${name}_base_footprint"/>
+    </joint>
+    
+    <!-- BASE FOOTPRINT -->
+    <!-- base_footprint is a fictitious link(frame) that is on the ground right below base_link origin,
+	 navigation stack depends on this frame -->
+    <link name="${name}_base_footprint">
+      <inertial>
+	<mass value="0.0001" />
+	<origin xyz="0 0 0" />
+	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		 iyy="0.0001" iyz="0.0" 
+		 izz="0.0001" />
+      </inertial>
+      <visual>
+	<origin xyz="0 0 0" rpy="0 0 0" />
+	<geometry>
+	  <box size="0.001 0.001 0.001" />
+	</geometry>
+      </visual>
+      <collision>
+	<origin xyz="0 0 0" rpy="0 0 0" />
+	<geometry>
+	  <box size="0.001 0.001 0.001" />
+	</geometry>
+      </collision>
+    </link>
+    
+    <gazebo reference="${name}_base_footprint">
+      <material>Gazebo/Green</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+    
+    <joint name="${name}_base_footprint_joint" type="fixed">
+      <!--NB: While you would think this would make it go up, it is oddly reversed.
+	  This moves the joint to 0,0,0 where we want it for rviz, etc. -->
+      <!-- origin xyz="0 0 0.130" rpy="0 0 0" / -->
+      <origin xyz="0 0 0.19" rpy="0 0 0" />
+      <parent link="${name}_base_footprint"/>
+      <child link="${name}_base_link" />
+    </joint>
+
+    <!-- BASE_LINK (RED) -->
+    <link name="${name}_base_link">
+      <inertial>
+	<mass value="95.0" />
+	<origin xyz="0 0 0" />
+	<inertia  ixx="3.737" ixy="0.008"  ixz="-0.144"
+		  iyy="8.311" iyz="-0.004" 
+		  izz="8.893" />
+      </inertial>
+      <visual>
+	<origin xyz="0 0 0" rpy="0 0 0" />
+	<geometry>
+	 <mesh filename="package://guardian_description/meshes/chassis/v6/chassisV6.stl"/>
+	</geometry>
+      </visual>
+      <collision>
+	<origin xyz="0 0 0.06" rpy="0 0 0 " />
+	<geometry>
+	  <mesh filename="package://guardian_description/meshes/chassis/v6/chassisV6.stl"/>
+	  <!-- box size = "1.0 0.4 0.2"/ -->
+	</geometry>
+      </collision>     
+    </link>
+
+    <gazebo reference="${name}_base_link">
+      <material>Gazebo/Red</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <!-- LEFT TRACK (BLACK) -->
+    <link name="${name}_left_track">
+      <inertial>
+	<mass value="1.250" />
+	<origin xyz="0 0 0" /> 
+	<inertia  ixx="0.0109375" ixy="0.0" ixz="0.0" 
+		  iyy="0.021125"  iyz="0.0" 
+		  izz="0.0109375" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" /> 
+        <geometry>
+	  <mesh filename="package://guardian_description/meshes/others/v5/trackV5_l.stl"/>
+        </geometry>
+	<material name="black">
+	  <color rgba="0.1 0.1 0.1 1"/>
+      	</material>
+      </visual>
+      <collision>
+	<origin xyz="0 0 0" rpy="0 0 0" />
+	<geometry>
+	  <mesh filename="package://guardian_description/meshes/others/v5/trackV5_l.stl"/>
+	</geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="${name}_left_track">
+      <material>Gazebo/FlatBlack</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+    
+    <joint name="${name}_joint_left_track" type="fixed">
+      <parent link="${name}_base_link"/>
+      <child link="${name}_left_track"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0" /> 
+    </joint>
+
+    <!-- RIGHT TRACK (BLACK) -->
+    <link name="${name}_right_track">
+      <inertial>
+	<mass value="1.250" />
+	<origin xyz="0 0 0" /> 
+	<inertia  ixx="0.0109375" ixy="0.0" ixz="0.0" 
+		  iyy="0.021125"  iyz="0.0" 
+		  izz="0.0109375" />
+      </inertial>
+      <visual>
+	<origin xyz="0 0 0" rpy="0 0 0" /> 
+	<geometry>
+	  <mesh filename="package://guardian_description/meshes/others/v5/trackV5_l.stl"/>
+	</geometry>
+	<material name="black">
+	  <color rgba="0.1 0.1 0.1 1"/>
+      	</material>
+      </visual>
+      <collision>
+	<origin xyz="0 0 0" rpy="0 0 0" />
+	<geometry>
+	  <mesh filename="package://guardian_description/meshes/others/v5/trackV5_l.stl"/>
+	</geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="${name}_right_track">
+      <material>Gazebo/FlatBlack</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+    
+    <joint name="${name}_joint_right_track" type="fixed">
+      <parent link="${name}_base_link"/>
+      <child link="${name}_right_track"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 3.1415926535" /> 
+      <!-- axis xyz="0 1 0" rpy="0 0 0" / -->
+    </joint>
+
+    <!-- BACK LEFT WHEEL (GREY) -->
+    <link name="${name}_back_left_wheel">
+      <inertial>
+	<mass value="4.5" />
+	<origin xyz="0 0 0" /> 
+	<inertia  ixx="0.059" ixy="0.0" ixz="0.0"  
+		  iyy="0.055" iyz="0.0" 
+		  izz="0.059" />
+      </inertial>
+      <visual>
+	<origin xyz="0 0 0" rpy="0 0 3.1416" /> 
+	<geometry>
+	  <mesh filename="package://guardian_description/meshes/wheel.stl"/>
+	</geometry>
+	<material name="grey">
+	  <color rgba="0.3 0.3 0.3 1"/>
+      	</material>
+      </visual>
+      <collision>
+	<origin xyz="0 0 0" rpy="0 0 0" />
+	<geometry>
+	  <mesh filename="package://guardian_description/meshes/wheel.stl"/>
+	</geometry>
+      </collision>
+    </link>
+    
+    <gazebo reference="${name}_back_left_wheel">
+      <mu1 value="10.0"/>
+      <mu2 value="0.5"/> 
+      <fdir1 value="1 0 0"/>
+      <material>Gazebo/Grey</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+    
+    <joint name="${name}_joint_back_left_wheel" type="continuous">
+      <parent link="${name}_base_link"/>
+      <child link="${name}_back_left_wheel"/>
+      <origin xyz="-0.30 0.265 0" rpy="0 0 0" /> 
+      <axis xyz="0 1 0" rpy="0 0 0" />
+      <limit effort="100" velocity="100"/>
+      <joint_properties damping="0.0" friction="0.0"/>
+    </joint>
+
+    <transmission name="${name}_joint_blw_trans" type="pr2_mechanism_model/SimpleTransmission">
+      <actuator name="${name}_joint_blw_motor" />
+      <joint name="${name}_joint_back_left_wheel" />
+      <mechanicalReduction>1</mechanicalReduction>
+      <motorTorqueConstant>1</motorTorqueConstant>
+    </transmission>
+    
+    <!-- BACK RIGHT WHEEL (BLACK) -->
+    <link name="${name}_back_right_wheel">
+      <inertial>
+	<mass value="4.5" />
+	<origin xyz="0 0 0" />
+	<inertia ixx="0.059" ixy="0.0" ixz="0.0"  
+		 iyy="0.055" iyz="0.0" 
+		 izz="0.059" />
+      </inertial>
+      <visual>
+	<origin xyz="0 0 0" rpy="0 0 0" /> 
+	<geometry>
+	  <mesh filename="package://guardian_description/meshes/wheel.stl"/>
+	</geometry>
+	<material name="gray">
+	  <color rgba="0.3 0.3 0.3 1"/>
+      	</material>
+      </visual>
+      <collision>
+	<origin xyz="0 0 0" rpy="0 0 0" /> 
+	<geometry>
+	  <mesh filename="package://guardian_description/meshes/wheel.stl"/>
+	</geometry>
+      </collision>
+    </link>
+    
+    <gazebo reference="${name}_back_right_wheel">
+      <mu1 value="10.0"/> <!-- 2.0 -->
+      <mu2 value="0.5"/> <!-- 0.5 -->
+      <fdir1 value="1 0 0"/>
+      <material>Gazebo/Grey</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <joint name="${name}_joint_back_right_wheel" type="continuous">
+      <parent link="${name}_base_link"/>
+      <child link="${name}_back_right_wheel"/>
+      <origin xyz="-0.30 -0.265 0" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit effort="100" velocity="100"/>
+      <joint_properties damping="0.0" friction="0.0"/>
+    </joint>
+
+    <transmission name="${name}_joint_brw_trans" type="pr2_mechanism_model/SimpleTransmission">
+      <actuator name="${name}_joint_brw_motor" />
+      <joint name="${name}_joint_back_right_wheel" />
+      <mechanicalReduction>1</mechanicalReduction>
+      <motorTorqueConstant>1</motorTorqueConstant>
+    </transmission>
+
+    <!-- FRONT LEFT WHEEL (GREY) -->
+    <link name="${name}_front_left_wheel">
+      <inertial>
+	<mass value="4.5" />
+	<origin xyz="0 0 0" />
+	<inertia ixx="0.059" ixy="0.0" ixz="0.0"  
+		 iyy="0.055" iyz="0.0"  
+		 izz="0.059" />
+      </inertial>
+      <visual>
+	<origin xyz="0 0 0" rpy="0 0 3.1416" /> 
+	<geometry>
+	  <mesh filename="package://guardian_description/meshes/wheel.stl"/>
+	</geometry>
+	<material name="grey">
+	  <color rgba="0.3 0.3 0.3 1"/>
+      	</material>
+      </visual>
+      <collision>
+	<origin xyz="0 0 0" rpy="0 0 0" /> 
+	<geometry>
+	  <mesh filename="package://guardian_description/meshes/wheel.stl"/>
+	</geometry>
+      </collision>
+    </link>
+    
+    <gazebo reference="${name}_front_left_wheel">
+      <mu1 value="10.0"/> <!-- 2.0 -->
+      <mu2 value="0.5"/> <!-- 0.5 -->
+      <fdir1 value="1 0 0"/>
+      <material>Gazebo/Grey</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+    
+    <joint name="${name}_joint_front_left_wheel" type="continuous">
+      <parent link="${name}_base_link"/>
+      <child link="${name}_front_left_wheel"/>
+      <origin xyz="0.30 0.265 0" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit effort="100" velocity="100"/>
+      <joint_properties damping="0.0" friction="0.0"/>
+    </joint>
+
+    <transmission name="${name}_joint_flw_trans" type="pr2_mechanism_model/SimpleTransmission">
+     <actuator name="${name}_joint_flw_motor" />
+     <joint name="${name}_joint_front_left_wheel" />
+     <mechanicalReduction>1</mechanicalReduction>
+     <motorTorqueConstant>1</motorTorqueConstant>
+    </transmission>
+
+    <!-- FRONT RIGHT WHEEL (GREY) -->
+    <link name="${name}_front_right_wheel">
+      <inertial>
+      <mass value="4.5" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.059" ixy="0.0" ixz="0.0" 
+	       iyy="0.055" iyz="0.0" 
+	       izz="0.059" />
+      </inertial>
+      <visual>
+	<origin xyz="0 0 0" rpy="0 0 0" /> 
+	<geometry>
+	  <mesh filename="package://guardian_description/meshes/wheel.stl"/>
+	</geometry>
+	<material name="grey">
+	  <color rgba="0.3 0.3 0.3 1"/>
+      	</material>
+      </visual>
+      <collision>
+	<origin xyz="0 0 0" rpy="0 0 0" /> 
+	<geometry>
+	  <mesh filename="package://guardian_description/meshes/wheel.stl"/> 
+	</geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="${name}_front_right_wheel">
+      <mu1 value="10.0"/> <!-- 2.0 -->
+      <mu2 value="0.5"/> <!-- 0.5 -->
+      <fdir1 value="1 0 0"/>
+      <material>Gazebo/Grey</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <joint name="${name}_joint_front_right_wheel" type="continuous">
+      <parent link="${name}_base_link"/>
+      <child link="${name}_front_right_wheel"/>
+      <origin xyz="0.30 -0.265 0" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit effort="100" velocity="100"/>
+      <joint_properties damping="0.0" friction="0.0"/>
+    </joint>
+
+    <transmission name="${name}_joint_frw_trans" type="pr2_mechanism_model/SimpleTransmission">
+     <actuator name="${name}_joint_frw_motor" />
+     <joint name="${name}_joint_front_right_wheel" />
+     <mechanicalReduction>1</mechanicalReduction>
+     <motorTorqueConstant>1</motorTorqueConstant>
+    </transmission>
+
+    <!-- HOKUYO SENSOR -->
+    <joint name="${name}_hokuyo_laser_joint" type="fixed">
+      <axis xyz="0 1 0" />
+      <origin xyz="0.12 0 0.285"/>
+      <parent link="${name}_base_link"/>
+      <child link="${name}_hokuyo_laser_link"/>
+    </joint>
+    
+    <link name="${name}_hokuyo_laser_link" type="laser">
+      <inertial>
+	<mass value="0.001" />
+	<origin xyz="0 0 0" rpy="0 0 0" />
+	<inertia ixx="0.0001" ixy="0" ixz="0" 
+		 iyy="0.000001" iyz="0"
+		 izz="0.0001" />
+      </inertial>
+    </link>
+    
+    <!-- This adds a visual box to allow us to see the Hokuyo in rviz/gazebo -->
+    <joint name="${name}_hokuyo_laser_box_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <parent link="${name}_hokuyo_laser_link" />
+      <child link="${name}_hokuyo_laser_box_link"/>
+    </joint>
+    
+    <link name="${name}_hokuyo_laser_box_link">
+      <inertial>
+	<mass value="0.01" />
+	<origin xyz="0 0 0" />
+	<inertia ixx="0.001" ixy="0.0"  ixz="0.0"
+		 iyy="0.001" iyz="0.0"
+		 izz="0.001"/>
+      </inertial>
+      <visual>
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+	<geometry>
+	  <!--box size="0.05 0.05 0.1" /-->
+	  <mesh filename= "package://pr2_description/meshes/tilting_laser_v0/hok_tilt.stl" scale="0.5 0.5 0.5"/>
+	</geometry>
+      </visual>
+      <collision>
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+	<geometry>
+	  <box size="0.05 0.05 0.1" />
+	</geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="${name}_hokuyo_laser_box_link">
+      <material>Gazebo/FlatBlack</material>
+      <turnGravityOff>false</turnGravityOff>
+    </gazebo>
+
+    <!-- IMU SENSOR -->
+    <joint name="${name}_imu_joint" type="fixed">
+      <axis xyz="1 0 0"/> <!-- 0 1 0 -->
+      <origin xyz="0 0 0.2825"/>
+      <parent link="${name}_base_link"/>
+      <child link="${name}_imu_link"/>
+    </joint>
+
+    <link name="${name}_imu_link">
+      <inertial>
+        <mass value="0.001"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <inertia ixx="0.0001" ixy="0" ixz="0" 
+		 iyy="0.000001" iyz="0" 
+		 izz="0.0001"/>
+      </inertial>
+      <visual>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size="0.001 0.001 0.001"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <geometry>
+          <box size=".001 .001 .001"/>
+        </geometry>
+      </collision>
+    </link>
+    
+  </xacro:macro>
+
+</robot>
+

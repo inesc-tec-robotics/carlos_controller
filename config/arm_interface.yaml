@@ -1,0 +1,13 @@
+arm_interface:
+  home_pos: [0.0, 1.4, 1.8, 0.0, 1.1708, 0.0]
+  init_pos: [-1.5708, 0.4, 2.2708, 0.0, -0.3, 0.0]
+  vision_pos: [-1.5708, 1.4, 1.8, 0.0, 1.1708, 0.0]
+  projection_pos: [-1.5708, 1.4, 1.8, 0.0, 1.1708, 0.0]
+  feeder_approach: [0.0, 0.48, 1.87, 0.0, 1.76, 0.0]
+  feeder_reload: [0.12, 0.45, 2.19, 0.0, 1.41, 0.0]
+  feeder_exit: [0.0, 0.47, 2.18, 0.0, 1.44, 0.0]
+  joint_names: ["arm_1_joint", "arm_2_joint", "arm_3_joint", "arm_4_joint", "arm_5_joint", "arm_6_joint"]
+  primary_cons: [['arm_1_joint', 0.0, 1.5708, 1.8708, 1.0], ['arm_2_joint', 0.0, 2.3562, 1.5708, 1.0], ['arm_3_joint', 0.0, 1.5708, 1.5708, 1.0], ['arm_4_joint', 0.0, 1.5708, 1.5708, 1.0]]
+  secondary_cons: [['arm_1_joint', 0.0, 0.7, 0.7, 1.0], ['arm_2_joint', 0.0, 0.9, 0.9, 1.0], ['arm_3_joint', 0.0, 1.2, 1.2, 1.0], ['arm_4_joint', 0.0, 1.2, 1.2, 1.0]]
+  position_cons: 0.002
+  orientation_cons: 0.002

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+  <rosparam command="load" ns="/script_server/arm" file="$(find schunk_default_config)/config/lwa4p_joint_configurations.yaml"/>
+  <include file="$(find gazebo_worlds)/launch/empty_world.launch" />
+  
+  <!-- send powerball urdf to param server -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find carlos_controller)/urdf/jvalinhas.urdf'" />
+
+  <node name="spawn_gazebo_model" pkg="gazebo" type="spawn_model" args="-urdf -param robot_description -model powerball" respawn="false" output="screen" />
+
+   <!-- controller manager -->
+  <include file="$(find schunk_controller_configuration_gazebo)/ros/launch/controller_manager.launch" />
+
+  <!-- lwa4p controllers -->
+  <include file="$(find schunk_controller_configuration_gazebo)/ros/launch/lwa4p_controller.launch" />
+
+  <include file="$(find powerball_moveit_config)/launch/move_group.launch">
+    <arg name="allow_trajectory_execution" value="true"/>
+  </include>
+
+  <include file="$(find powerball_moveit_config)/launch/default_warehouse_db.launch" />
+</launch>

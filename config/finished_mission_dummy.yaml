@@ -1,0 +1,107 @@
+CAD: room1.cad
+name: finished_mission_dummy
+tasks:
+  task001:
+    direction: 1
+    nav_goal: {x: 236.78, y: 364.74, yaw: 1.24}
+    stud_pattern: {distance: 300.0, distribution: some_dist, proximity: 150.0, press: 160.0}
+    studs:
+      stud_1: {state: 1, time_stamp: 1429631054.123456, x: 26.78, y: 154.78}
+      stud_2: {state: 1, time_stamp: 1429631089.123456, x: 36.78, y: 25.78}
+      stud_3: {state: 2, time_stamp: 1429631245.123456, x: 101.78, y: 256.78}
+      stud_4: {state: 1, time_stamp: 1429631365.123456, x: 245.78, y: 168.78}
+    stud_type: type57
+    voltage: 200
+  task002:
+    direction: 1
+    nav_goal: {x: 896.78, y: 484.74, yaw: 1.24}
+    stud_pattern: {distance: 400.0, distribution: some_dist, proximity: 125.0, press: 160.0}
+    studs:
+      stud_1: {state: 1, time_stamp: 1429631054.123456, x: 26.78, y: 154.78}
+      stud_2: {state: 1, time_stamp: 1429631089.123456, x: 36.78, y: 25.78}
+      stud_3: {state: 1, time_stamp: 1429631245.123456, x: 101.78, y: 256.78}
+      stud_4: {state: 1, time_stamp: 1429631365.123456, x: 245.78, y: 168.78}
+    stud_type: type89
+    voltage: 200
+  task003:
+    direction: 1
+    nav_goal: {x: 916.78, y: 374.74, yaw: 1.24}
+    stud_pattern: {distance: 150.0, distribution: some_dist, proximity: 250.0, press: 160.0}
+    studs:
+      stud_1: {state: 1, time_stamp: 1429631054.123456, x: 26.78, y: 154.78}
+      stud_2: {state: 1, time_stamp: 1429631089.123456, x: 36.78, y: 25.78}
+      stud_3: {state: 2, time_stamp: 1429631245.123456, x: 101.78, y: 256.78}
+      stud_4: {state: 1, time_stamp: 1429631365.123456, x: 245.78, y: 168.78}
+    stud_type: type31
+    voltage: 200
+  task004:
+    direction: 1
+    nav_goal: {x: 24.78, y: 672.74, yaw: 1.24}
+    stud_pattern: {distance: 250.0, distribution: some_dist, proximity: 100.0, press: 160.0}
+    studs:
+      stud_1: {state: 1, time_stamp: 1429631054.123456, x: 26.78, y: 154.78}
+      stud_2: {state: 0, time_stamp: 1429631089.123456, x: 36.78, y: 25.78}
+      stud_3: {state: 0, time_stamp: 1429631245.123456, x: 101.78, y: 256.78}
+      stud_4: {state: 1, time_stamp: 1429631365.123456, x: 245.78, y: 168.78}
+    stud_type: type49
+    voltage: 200
+  test_task:
+    direction: 1
+    nav_goal: {x: 24.78, y: 672.74, yaw: 1.24}
+    stud_pattern: {distance: 250.0, distribution: some_dist, proximity: 100.0, press: 160.0}
+    studs:
+      stud_1: {state: 0, time_stamp: 1429631054.123456, x: 0.417247, y: 0.819263}
+      stud_2: {state: 0, time_stamp: 1429631089.123456, x: 0.144265, y: 0.819263}
+      stud_3: {state: 0, time_stamp: 1429631245.123456, x: 0.280756, y: 0.699880}
+      stud_4: {state: 0, time_stamp: 1429631365.123456, x: 0.417247, y: 0.480498}
+      stud_5: {state: 0, time_stamp: 1429631365.123456, x: 0.144265, y: 0.480498}
+    stud_type: type49
+    voltage: 200
+  test1:
+    direction: 1
+    nav_goal: {x: 24.78, y: 672.74, yaw: 1.24}
+    stud_pattern: {distance: 250.0, distribution: some_dist, proximity: 100.0, press: 160.0}
+    studs:
+      stud_1: {state: 0, time_stamp: 1429631245.123456, x: 0.280756, y: 0.699880}
+    stud_type: type49
+    voltage: 200
+  test2:
+    direction: 1
+    nav_goal: {x: 24.78, y: 672.74, yaw: 1.24}
+    stud_pattern: {distance: 250.0, distribution: some_dist, proximity: 100.0, press: 160.0}
+    studs:
+      stud_1: {state: 0, time_stamp: 1429631054.123456, x: 0.417247, y: 0.819263}
+      stud_2: {state: 0, time_stamp: 1429631089.123456, x: 0.144265, y: 0.819263}
+    stud_type: type49
+    voltage: 200
+  test_panel2:
+    direction: 1
+    nav_goal: {x: 24.78, y: 672.74, yaw: 1.24}
+    stud_pattern: {distance: 250.0, distribution: some_dist, proximity: 100.0, press: 170.0}
+    studs:
+      stud_1: {state: 0, time_stamp: 1429631054.123456, x: 0.460125, y: 0.896660}
+      stud_2: {state: 0, time_stamp: 1429631089.123456, x: 0.277096, y: 0.896660}
+      stud_3: {state: 0, time_stamp: 1429631245.123456, x: 0.368610, y: 0.694936}
+      stud_4: {state: 0, time_stamp: 1429631365.123456, x: 0.185581, y: 0.694936}
+      stud_5: {state: 0, time_stamp: 1429631365.123456, x: 0.277096, y: 0.493211}
+      stud_6: {state: 0, time_stamp: 1429631365.123456, x: 0.094067, y: 0.493211}
+    stud_type: type49
+    voltage: 200
+  test_panel1:
+    direction: 1
+    nav_goal: {x: 24.78, y: 672.74, yaw: 1.24}
+    stud_pattern: {distance: 250.0, distribution: some_dist, proximity: 100.0, press: 170.0}
+    studs:
+      stud_1: {state: 0, time_stamp: 1429631054.123456, x: 0.450982, y: 0.890751}
+      stud_2: {state: 0, time_stamp: 1429631089.123456, x: 0.330327, y: 0.890751}
+      stud_3: {state: 0, time_stamp: 1429631245.123456, x: 0.209671, y: 0.890751}
+      stud_4: {state: 0, time_stamp: 1429631365.123456, x: 0.089016, y: 0.890751}
+      stud_5: {state: 0, time_stamp: 1429631365.123456, x: 0.390654, y: 0.695859}
+      stud_6: {state: 0, time_stamp: 1429631365.123456, x: 0.269999, y: 0.695859}
+      stud_7: {state: 0, time_stamp: 1429631089.123456, x: 0.149343, y: 0.695859}
+      stud_8: {state: 0, time_stamp: 1429631245.123456, x: 0.450982, y: 0.500967}
+      stud_9: {state: 0, time_stamp: 1429631365.123456, x: 0.330327, y: 0.500967}
+      stud_10: {state: 0, time_stamp: 1429631365.123456, x: 0.209671, y: 0.500967}
+      stud_11: {state: 0, time_stamp: 1429631365.123456, x: 0.089016, y: 0.500967}
+    stud_type: type49
+    voltage: 200

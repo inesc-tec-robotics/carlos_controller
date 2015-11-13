@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<launch>
+
+  <include file="$(find gazebo_worlds)/launch/empty_world.launch" />
+
+  <!-- The Master Launchfile for driving a simulated Powerball through Moveit. -->
+
+  <include file="$(find powerball_moveit_config)/launch/planning_context.launch" />
+
+  <!-- upload robot_description -->
+  <include file="$(find powerball_description)/launch/upload_powerball.launch" />
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_gazebo_model" pkg="gazebo" type="spawn_model" args="-urdf -param robot_description -model powerball" respawn="false" output="screen" />
+
+  <!--node name="powerball_joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="/use_gui" value="false"/>
+  </node-->
+  
+  <!--node name="powerball_robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" /-->
+
+  <include file="$(find powerball_moveit_config)/launch/move_group.launch">
+    <arg name="allow_trajectory_execution" value="true"/>
+  </include>
+
+  <!--include file="$(find powerball_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="config" value="true"/>
+  </include-->
+
+  <!--include file="$(find powerball_moveit_config)/launch/default_warehouse_db.launch"/-->
+
+</launch>

@@ -1,0 +1,6 @@
+link_names:
+  effector: arm_6_link
+  tool: tool_link
+  camera: v_camera_link
+  projector: projector_link
+constraints: [['arm_2_joint', 0.0, 0.7854, 1.5708, 1.0], ['arm_3_joint', 1.5708, 1.5708, 1.5708, 1.0]]

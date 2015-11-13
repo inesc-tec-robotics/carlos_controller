@@ -1,0 +1,3 @@
+geometry_msgs/PointStamped move
+---
+std_msgs/UInt8 mode

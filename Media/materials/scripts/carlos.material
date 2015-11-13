@@ -1,0 +1,29 @@
+material Carlos/RustySteel
+{
+  receive_shadows on
+
+  technique
+  {
+    pass
+    {
+      ambient 0.510 0.365 0.263 1.000000
+      diffuse 0.510 0.365 0.263 1.000000
+      specular 0.1 0.1 0.1 1.000000 
+    }
+  }
+}
+
+material Carlos/Copper
+{
+  receive_shadows on
+
+  technique
+  {
+    pass
+    {
+      ambient 0.682 0.396 0.192 1.000000
+      diffuse 0.682 0.396 0.192 1.000000
+      specular 0.2 0.2 0.2 1.000000 
+    }
+  }
+}

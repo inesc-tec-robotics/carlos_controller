@@ -1,0 +1,5 @@
+uint32 id
+---
+uint32 total
+---
+float32 percent

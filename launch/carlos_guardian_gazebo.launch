@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<launch>
+  <include file="$(find gazebo_worlds)/launch/empty_world.launch"/>
+  <!--include file="$(find hector_gazebo_worlds)/launch/rolling_landscape_120m.launch"/-->
+
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find carlos_controller)/urdf/guardian.urdf'" />
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_object" pkg="gazebo" type="spawn_model" args="-urdf -param robot_description -z 0.5 -model guardian" respawn="false" output="screen" />
+
+</launch>

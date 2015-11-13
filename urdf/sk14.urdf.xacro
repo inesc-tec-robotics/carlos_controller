@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://ros.org/wiki/xacro">
+  
+  <!--<include filename="$(find carlos_controller)/urdf/sk14.gazebo.xacro" />-->
+  <!--<include filename="$(find carlos_controller)/urdf/sk14.materials.xacro" />-->
+
+  <xacro:macro name="koco_sk14" params="parent name *origin">
+   <joint name="${name}_body_joint" type="fixed" >
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${parent}" />
+      <child link="${name}_body_link" />
+    </joint>
+
+    <link name="${name}_body_link">
+      <inertial>
+	<origin xyz="0 0 0" rpy="0 0 0" />
+	<mass value="0.2" />
+	<inertia ixx="0.01" ixy="0" ixz="0"
+		 iyy="0.01" iyz="0"
+		 izz="0.01" />
+      </inertial>
+      <visual>
+	<origin xyz="0 0 0" rpy="0 0 0" />
+	<geometry>
+	  <mesh filename="package://carlos_controller/meshes/sk14/sk14.dae" />
+	</geometry>
+      </visual>
+      <collision>
+	<origin xyz="0 0 0" rpy="0 0 0" />
+	<geometry>
+	  <mesh filename="package://carlos_controller/meshes/sk14/sk14.dae" />
+	</geometry>
+      </collision>
+    </link>
+
+    <gazebo reference="${name}_body_link">
+      <material value="Carlos/Copper"/>
+      <turnGravityOff>false</turnGravityOff>
+      <selfCollide>true</selfCollide>
+    </gazebo>
+
+  </xacro:macro>
+</robot>

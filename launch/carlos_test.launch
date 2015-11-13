@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<launch>
+  <include file="$(find gazebo_worlds)/launch/empty_world.launch" />
+
+  <!-- send powerball urdf to param server -->
+  <include file="$(find carlos_controller)/launch/upload_carlos.launch" />
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_gazebo_model" pkg="gazebo" type="spawn_model" args="-urdf -param robot_description -model powerball" respawn="false" output="screen" />
+
+  <!-- controller manager -->
+  <!--<include file="$(find schunk_controller_configuration_gazebo)/ros/launch/controller_manager.launch" />-->
+
+  <!-- lwa4p controllers -->
+  <include file="$(find schunk_controller_configuration_gazebo)/ros/launch/lwa4p_controller.launch" />
+  
+  <!--<include file="$(find schunk_bringup)/tools/teleop.launch" />-->
+
+  <include file="$(find powerball_moveit_config)/launch/move_group.launch">
+    <arg name="allow_trajectory_execution" value="true"/>
+  </include>
+
+  <!--<include file="$(find powerball_moveit_config)/launch/default_warehouse_db.launch" />-->
+
+</launch>

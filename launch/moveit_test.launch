@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find powerball_description)/urdf/powerball.urdf.xacro'" />
+  <param name="robot_description_semantic" textfile="$(find powerball_moveit_config)/config/powerball.srdf" />
+  <node name="crl_moveit" pkg="carlos_controller" type="crl_moveit" respawn="false" output="screen">
+    <rosparam command="load" file="$(find powerball_moveit_config)/config/kinematics.yaml"/>
+  </node>
+</launch>

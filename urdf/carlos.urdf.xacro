@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       name="powerball" >
+  
+  <!-- common stuff -->
+  <include filename="$(find cob_description)/urdf/common.xacro" />
+  <include filename="$(find schunk_description)/urdf/materials.urdf.xacro" />
+  <include filename="$(find cob_description)/gazebo/gazebo.urdf.xacro" />
+  <!--include filename="$(find carlos_controller)/urdf/sk14.gazebo.xacro"/-->
+  <!-- calibration -->
+  <include filename="$(find schunk_hardware_config)/powerball/calibration/calibration.urdf.xacro" />
+  
+  <!-- schunk powerball -->
+  <include filename="$(find schunk_description)/urdf/powerball/powerball.urdf.xacro" />
+  
+  <!-- Koco SK14 stud welding tool -->
+  <!--include filename="$(find carlos_controller)/urdf/sk14.urdf.xacro"/-->
+  
+  <!-- foot for arm -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0.05" rpy="0 0 0" />
+      <geometry>
+	<box size="1.5 1.5 0.1 " />
+      </geometry>
+      <material name="wall">
+	<color rgba="1.0 0.97 0.89 1.0" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0.05" rpy="0 0 0" />
+      <geometry>
+	<box size="1.5 1.5 0.1" />
+      </geometry>
+    </collision>
+    <inertial>
+      <origin xyz="0 0 0.05" rpy="0 0 0" />
+      <mass value="300" />
+      <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
+    </inertial>
+  </link>
+
+  <joint name="wall_joint" type="fixed">
+    <origin xyz="0 0 0.1" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="wall_link"/>
+  </joint>
+
+  <link name="wall_link">
+    <visual>
+      <origin xyz="0 0 0.04" rpy="0 0 0"/>
+      <geometry>
+	<cylinder radius="0.065" length="0.08"/>
+      </geometry>
+      <material name="Schunk/DarkGrey"/>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0.04" rpy="0 0 0"/>
+      <geometry>
+	<cylinder radius="0.065" length="0.08"/>
+      </geometry>
+    </collision>
+    
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="300" />
+      <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100"/>
+    </inertial>
+  </link>
+
+  <!-- arm -->
+  <xacro:schunk_powerball name="arm" parent="wall_link">
+    <origin xyz="0 0 1.0925" rpy="0 0 0"/>
+  </xacro:schunk_powerball>
+  
+  <!--joint name="tool_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 1.571"/>
+      <parent link="arm_tool0"/>
+      <child link="koco_link"/>
+  </joint>
+
+  <link name="koco_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.8" />
+      <inertia ixx="0.01" ixy="0" ixz="0"
+	       iyy="0.01" iyz="0"
+	       izz="0.01" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+	<mesh filename="package://carlos_controller/meshes/sk14/sk14.stl" />
+      </geometry>
+      <material name="Gazebo/Gold" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+	<mesh filename="package://carlos_controller/meshes/sk14/sk14.stl" />
+      </geometry>
+    </collision>
+  </link>
+
+  <gazebo reference="koco_link">
+    <material value="Gazebo/Gold"/>
+    <turnGravityOff>false</turnGravityOff>
+    <selfCollide>false</selfCollide>
+  </gazebo-->
+
+
+  <!--xacro:koco_sk14 name="tool" parent="arm_tool0">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </xacro:koco_sk14-->
+
+</robot>

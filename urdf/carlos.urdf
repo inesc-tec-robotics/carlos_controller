@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<robot xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+       xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+       xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       xmlns:xacro="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+       name="powerball" >
+
+  <!-- common stuff -->
+  <include filename="$(find cob_description)/urdf/common.xacro" />
+  <include filename="$(find schunk_description)/urdf/materials.urdf.xacro" />
+  <include filename="$(find cob_description)/gazebo/gazebo.urdf.xacro" />
+
+  <!-- calibration -->
+  <include filename="$(find schunk_hardware_config)/powerball/calibration/calibration.urdf.xacro" />
+
+  <!-- schunk powerball -->
+  <include filename="$(find schunk_description)/urdf/powerball/powerball.urdf.xacro" />
+
+  <!-- foot for arm -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0.0 0.005" rpy="0 0 0" />
+      <mass value="300" />
+      <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0.005" rpy="0 0 0" />
+      <geometry>
+	<box size="1.0 1.0 0.01"/>
+      </geometry>
+      <material name="Schunk/DarkGrey"/>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0.005" rpy="0 0 0"/>
+      <geometry>
+	<box size="1.0 1.0 0.01"/>
+      </geometry>
+      <material name="Schunk/DarkGrey"/>
+    </collision>
+  </link>
+
+  <link name="floor_link">
+    <inertial>
+      <origin xyz="0 0 -0.035" rpy="0 0 0" />
+      <mass value="300" />
+      <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 -0.035" rpy="0 0 0" />
+      <geometry>
+	<cylinder radius="0.065" length="0.12" />
+      </geometry>
+      <material name="Schunk/DarkGrey"/>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 -0.035" rpy="0 0 0"/>
+      <geometry>
+	<cylinder radius="0.065" length="0.12"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="base_joint" type="fixed">
+    <origin xyz="0 0 0.105" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="floor_link"/>
+  </joint>
+  
+  <!-- arm -->
+  <xacro:schunk_powerball name="arm" parent="floor_link">
+    <origin xyz="0 0 0.025" rpy="0 0 0" />
+  </xacro:schunk_powerball>
+
+</robot>

@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<launch>
+  <!--include file="$(find gazebo_worlds)/launch/empty_world.launch" /-->
+
+  <include file="$(find carlos_controller)/launch/start.launch">
+    <arg name="world" value="$(find carlos_controller)/worlds/jvalinhas.world"/>
+  </include>
+
+</launch>

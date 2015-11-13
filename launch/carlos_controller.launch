@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+  <node name="crl_controller" pkg="carlos_controller" type="crl_controller">
+
+  </node>
+</launch>

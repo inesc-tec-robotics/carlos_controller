@@ -1,0 +1,9 @@
+feeder:
+  device: EPOS2
+  protocol: MAXON SERIAL V2
+  interface: USB
+  roll: USB0
+  load: USB1
+  baudrate: 1000000
+  node: 1
+
